@@ -8,6 +8,7 @@ module code.snippet.stash {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
 
-//    opens lab.gui to javafx.fxml;
-//    opens lab.data;
+    opens io.github.qprove_p.codesnippetstash.gui to javafx.fxml;
+
+    exports io.github.qprove_p.codesnippetstash.gui to javafx.fxml, javafx.graphics;
 }
