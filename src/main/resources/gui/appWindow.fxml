@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -17,7 +16,7 @@
     <top>
         <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1037.0" spacing="10" styleClass="top-bar">
             <Button fx:id="hamburgerBtn" onAction="#toggleSideMenu" text="☰" />
-            <TextField fx:id="searchBar" promptText="Search..." />
+            <TextField fx:id="searchBar" promptText="Search..." minWidth="192"/>
             <Region prefWidth="528.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="nSnippetBtn">
                 <graphic>
@@ -55,6 +54,7 @@
             <Button fx:id="favouritesBtn" text="Favourites" />
         </VBox>
     </left>
+
    <center>
       <ScrollPane fx:id="contentArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
         <content>
