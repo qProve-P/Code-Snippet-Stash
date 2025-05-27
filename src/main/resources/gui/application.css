@@ -1,1 +1,115 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/* application.css */
+
+.top-bar {
+    -fx-background-color: #333;
+    -fx-padding: 8px;
+}
+
+.side-menu {
+    -fx-background-color: #333;
+    -fx-padding: 10px;
+}
+
+.text-field {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: transparent;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px;
+}
+
+#contentArea {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+#contentArea .viewport {
+    -fx-background-color: #252525;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+#sideMenu {
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+#hamburgerBtn {
+    -fx-text-fill: #fff;
+    -fx-background-color: #333;
+}
+
+#hamburgerBtn:hover {
+    -fx-background-color: #242424;
+    -fx-cursor: pointer;
+}
+
+#settingsBtn {
+    -fx-border-width: 0;
+    -fx-border-color: #D9D9D9;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #333;
+}
+#settingsBtn:hover {
+    -fx-background-color: #1e1e1e;
+}
+
+#nTagBtn {
+    -fx-border-width: 0;
+    -fx-border-color: #D9D9D9;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #333;
+}
+#nTagBtn:hover {
+    -fx-background-color: #1e1e1e;
+}
+
+#nSnippetBtn {
+    -fx-border-width: 0;
+    -fx-border-color: #D9D9D9;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #333;
+}
+#nSnippetBtn:hover {
+    -fx-background-color: #1e1e1e;
+}
+
+#allBtn {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #565656;
+    -fx-padding: 15px;
+    -fx-text-fill: #fff;
+}
+#allBtn:hover {
+    -fx-background-color: #2d2d2d;
+}
+
+#favouritesBtn {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #3C3C3C;
+    -fx-padding: 15px;
+    -fx-text-fill: #fff;
+}
+#favouritesBtn:hover {
+    -fx-background-color: #2d2d2d;
+}

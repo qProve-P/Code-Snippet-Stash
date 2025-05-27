@@ -10,30 +10,36 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 @Log4j2
-public class Main extends Application {
+    public class Main extends Application {
 
-    public static void main(String[] args) {
-        log.info("Starting up");
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage){
-        log.info("Loading GUI");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/appWindow.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-            log.info("GUI loaded");
-        }catch(IOException e) {
-            log.error("Error loading GUI: ", e);
-            throw new RuntimeException(e);
+        public static void main(String[] args) {
+            log.info("Starting up");
+            launch(args);
         }
 
-        primaryStage.setTitle("Code Snippet Stash");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        @Override
+        public void start(Stage primaryStage){
+            log.info("Loading GUI");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/appWindow.fxml"));
+                Parent root = loader.load();
+
+                log.info("GUI loaded");
+
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/gui/application.css")).toExternalForm());
+
+                primaryStage.setTitle("Code Snippet Stash");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+
+            }catch(IOException e) {
+                log.error("Error loading GUI: ", e);
+                throw new RuntimeException(e);
+            }
+        }
     }
-}
