@@ -7,16 +7,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.GridPane?>
+
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.AppController">
 
     <top>
         <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1037.0" spacing="10" styleClass="top-bar">
-            <Button fx:id="hamburgerBtn" onAction="#toggleSideMenu" text="☰" />
-            <TextField fx:id="searchBar" promptText="Search..." minWidth="192"/>
+            <TextField fx:id="searchBar" promptText="Search..." minWidth="230"/>
             <Region prefWidth="528.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="nSnippetBtn" />
             <Button fx:id="nTagBtn" />

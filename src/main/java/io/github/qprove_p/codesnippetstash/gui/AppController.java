@@ -39,9 +39,6 @@ public class AppController {
     private Button favouritesBtn;
 
     @FXML
-    private Button hamburgerBtn;
-
-    @FXML
     private Button nSnippetBtn;
 
     @FXML
@@ -63,16 +60,10 @@ public class AppController {
     private HBox topBar;
 
     @FXML
-    void toggleSideMenu(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert allBtn != null : "fx:id=\"allBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert contentArea != null : "fx:id=\"contentArea\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert favouritesBtn != null : "fx:id=\"favouritesBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
-        assert hamburgerBtn != null : "fx:id=\"hamburgerBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert nSnippetBtn != null : "fx:id=\"nSnippetBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert nTagBtn != null : "fx:id=\"nTagBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert root != null : "fx:id=\"root\" was not injected: check your FXML file 'appWindow.fxml'.";

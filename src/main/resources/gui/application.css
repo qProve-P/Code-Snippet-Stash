@@ -3,11 +3,15 @@
 .top-bar {
     -fx-background-color: #333;
     -fx-padding: 8px;
+    -fx-border-color: transparent transparent #4d4d4d transparent;
+    -fx-border-width: 0 0 1px 0;
 }
 
 .side-menu {
     -fx-background-color: #333;
     -fx-padding: 10px;
+    -fx-border-color: transparent #4d4d4d transparent transparent;
+    -fx-border-width: 0 1px 0 0;
 }
 
 .text-field {
