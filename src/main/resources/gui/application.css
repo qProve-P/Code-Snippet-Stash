@@ -39,14 +39,17 @@
     -fx-spacing: 0;
 }
 
-#hamburgerBtn {
-    -fx-text-fill: #fff;
+#searchBtn {
+    -fx-border-width: 0;
+    -fx-border-color: #D9D9D9;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
     -fx-background-color: #333;
 }
-
-#hamburgerBtn:hover {
-    -fx-background-color: #242424;
-    -fx-cursor: pointer;
+#searchBtn:hover {
+    -fx-background-color: #1e1e1e;
 }
 
 #settingsBtn {
@@ -59,6 +62,19 @@
     -fx-background-color: #333;
 }
 #settingsBtn:hover {
+    -fx-background-color: #1e1e1e;
+}
+
+#homeBtn {
+    -fx-border-width: 0;
+    -fx-border-color: #D9D9D9;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-background-color: #333;
+}
+#homeBtn:hover {
     -fx-background-color: #1e1e1e;
 }
 

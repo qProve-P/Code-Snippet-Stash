@@ -10,10 +10,10 @@
 <?import javafx.scene.control.Separator?>
 
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.NewTagController" prefWidth="211" prefHeight="224">
+<BorderPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.NewTagController">
 
     <top>
-        <HBox alignment="CENTER" prefHeight="40" style="-fx-background-color:#333;">
+        <HBox alignment="CENTER" prefHeight="40">
             <Label fx:id="newTagLabel" text="Create New Tag" textFill="#d9d9d9" style="-fx-font-size:16px;-fx-font-weight:bold;" />
         </HBox>
     </top>
@@ -21,7 +21,7 @@
     <center>
         <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding:20;-fx-background-color:#252525;">
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="nameField" promptText="Tag Name" style="-fx-max-width:200px" />
+            <TextField fx:id="nameField" promptText="Tag Name" style="-fx-max-width:200px;-fx-prompt-text-fill:#333;" />
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />
             <ColorPicker fx:id="colorPicker" />
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />

@@ -5,6 +5,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,6 +60,12 @@ public class AppController {
     private TextField searchBar;
 
     @FXML
+    private Button searchBtn;
+
+    @FXML
+    private Button homeBtn;
+
+    @FXML
     private Button settingsBtn;
 
     @FXML
@@ -74,10 +83,21 @@ public class AppController {
         assert nTagBtn != null : "fx:id=\"nTagBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert root != null : "fx:id=\"root\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert searchBar != null : "fx:id=\"searchBar\" was not injected: check your FXML file 'appWindow.fxml'.";
+        assert searchBar != null : "fx:id=\"searchBar\" was not injected: check your FXML file 'appWindow.fxml'.";
+        assert homeBtn != null : "fx:id=\"homeBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert settingsBtn != null : "fx:id=\"settingsBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
 
+        FontIcon searchIcon = new FontIcon(FontAwesome.SEARCH);
+        searchIcon.setIconSize(20);
+        searchIcon.setIconColor(Color.web("#D9D9D9"));
+        searchBtn.setGraphic(searchIcon);
+
+        FontIcon homeIcon = new FontIcon(FontAwesome.HOME);
+        homeIcon.setIconSize(20);
+        homeIcon.setIconColor(Color.web("#D9D9D9"));
+        homeBtn.setGraphic(homeIcon);
 
         FontIcon snippetIcon = new FontIcon(FontAwesome.FILE_TEXT);
         snippetIcon.setIconSize(20);
@@ -114,31 +134,49 @@ public class AppController {
         favouritesBtn.setOnMouseEntered(e -> favouritesBtn.setCursor(Cursor.HAND));
         favouritesBtn.setOnMouseExited(e -> favouritesBtn.setCursor(Cursor.DEFAULT));
 
+        searchBtn.setOnMouseEntered(e -> searchBtn.setCursor(Cursor.HAND));
+        searchBtn.setOnMouseExited(e -> searchBtn.setCursor(Cursor.DEFAULT));
+
+        homeBtn.setOnMouseEntered(e -> homeBtn.setCursor(Cursor.HAND));
+        homeBtn.setOnMouseExited(e -> homeBtn.setCursor(Cursor.DEFAULT));
+        homeBtn.setOnAction(e -> openHomePage());
+
         settingsBtn.setOnMouseEntered(e -> settingsBtn.setCursor(Cursor.HAND));
         settingsBtn.setOnMouseExited(e -> settingsBtn.setCursor(Cursor.DEFAULT));
 
         nTagBtn.setOnMouseEntered(e -> nTagBtn.setCursor(Cursor.HAND));
         nTagBtn.setOnMouseExited(e -> nTagBtn.setCursor(Cursor.DEFAULT));
-        nTagBtn.setOnAction(e -> openNewTagWindow());
+        nTagBtn.setOnAction(e -> openNewTagPage());
 
         nSnippetBtn.setOnMouseEntered(e -> nSnippetBtn.setCursor(Cursor.HAND));
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
     }
 
-    private void openNewTagWindow() {
+    private void openNewTagPage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagWindow.fxml"));
-            Parent root = fxmlLoader.load();
+            Parent newTagContent = fxmlLoader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("New Tag");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-            log.info("New Tag window opened");
+            scrollContent.getChildren().clear();
+            scrollContent.getColumnConstraints().clear();
+            scrollContent.getRowConstraints().clear();
+
+            scrollContent.prefWidthProperty().bind(contentArea.widthProperty());
+            scrollContent.prefHeightProperty().bind(contentArea.heightProperty());
+
+            scrollContent.setAlignment(Pos.CENTER);
+            scrollContent.add(newTagContent, 0, 0);
+
+            log.info("Switch to new-tag page");
         }catch(Exception e) {
-            log.error("Unable to open new tag window: ", e);
+            log.error("Unable to switch to new-tag page: ", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private void openHomePage() {
+        scrollContent.getChildren().clear();
+
+        log.info("Switch to home view");
     }
 }

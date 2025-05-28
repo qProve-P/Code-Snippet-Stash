@@ -21,6 +21,8 @@ public class NewTagController {
     @FXML
     private Label newTagLabel;
 
+    private Runnable onCloseCallback;
+
     @FXML
     private void handleSave() {
         String name = nameField.getText();
@@ -38,9 +40,14 @@ public class NewTagController {
         closeWindow();
     }
 
+    public void setOnCloseCallback(Runnable onCloseCallback) {
+        this.onCloseCallback = onCloseCallback;
+    }
+
     private void closeWindow() {
-        Stage stage = (Stage) nameField.getScene().getWindow();
-        stage.close();
-        log.info("Closing new tag window");
+        if(onCloseCallback != null) {
+            onCloseCallback.run();
+        }
+        log.info("Closing new-tag page");
     }
 }
