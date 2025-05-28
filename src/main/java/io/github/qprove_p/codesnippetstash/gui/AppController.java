@@ -9,7 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import lombok.extern.log4j.Log4j2;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.fontawesome.FontAwesome;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -77,6 +80,23 @@ public class AppController {
         assert settingsBtn != null : "fx:id=\"settingsBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
+
+
+        FontIcon snippetIcon = new FontIcon(FontAwesome.FILE_TEXT);
+        snippetIcon.setIconSize(20);
+        snippetIcon.setIconColor(Color.web("#D9D9D9"));
+        nSnippetBtn.setGraphic(snippetIcon);
+
+        FontIcon tagIcon = new FontIcon(FontAwesome.TAGS);
+        tagIcon.setIconSize(20);
+        tagIcon.setIconColor(Color.web("#D9D9D9"));
+        nTagBtn.setGraphic(tagIcon);
+
+        FontIcon settingsIcon = new FontIcon(FontAwesome.COG);
+        settingsIcon.setIconSize(20);
+        settingsIcon.setIconColor(Color.web("#D9D9D9"));
+        settingsBtn.setGraphic(settingsIcon);
+
 
         contentArea.viewportBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
             scrollContent.setPrefWidth(newBounds.getWidth());

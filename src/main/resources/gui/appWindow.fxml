@@ -18,33 +18,9 @@
             <Button fx:id="hamburgerBtn" onAction="#toggleSideMenu" text="☰" />
             <TextField fx:id="searchBar" promptText="Search..." minWidth="192"/>
             <Region prefWidth="528.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="nSnippetBtn">
-                <graphic>
-                    <ImageView fitHeight="25" fitWidth="25" preserveRatio="true">
-                        <image>
-                            <Image url="@../icons/snippet.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button fx:id="nTagBtn">
-                <graphic>
-                    <ImageView fitHeight="25" fitWidth="25" preserveRatio="true">
-                        <image>
-                            <Image url="@../icons/tag.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button fx:id="settingsBtn">
-                <graphic>
-                    <ImageView fitHeight="25" fitWidth="25" preserveRatio="true">
-                        <image>
-                            <Image url="@../icons/cog.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
+            <Button fx:id="nSnippetBtn" />
+            <Button fx:id="nTagBtn" />
+            <Button fx:id="settingsBtn" />
         </HBox>
     </top>
 

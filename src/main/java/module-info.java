@@ -7,6 +7,8 @@ module code.snippet.stash {
     requires static lombok;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.fontawesome;
 
     opens io.github.qprove_p.codesnippetstash.gui to javafx.fxml;
 
