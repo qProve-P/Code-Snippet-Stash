@@ -4,12 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.fontawesome.FontAwesome;
@@ -76,11 +82,15 @@ public class AppController {
         FontIcon snippetIcon = new FontIcon(FontAwesome.FILE_TEXT);
         snippetIcon.setIconSize(20);
         snippetIcon.setIconColor(Color.web("#D9D9D9"));
+        nSnippetBtn.setContentDisplay(ContentDisplay.RIGHT);
+        nSnippetBtn.setText("+");
         nSnippetBtn.setGraphic(snippetIcon);
 
         FontIcon tagIcon = new FontIcon(FontAwesome.TAGS);
         tagIcon.setIconSize(20);
         tagIcon.setIconColor(Color.web("#D9D9D9"));
+        nTagBtn.setContentDisplay(ContentDisplay.RIGHT);
+        nTagBtn.setText("+");
         nTagBtn.setGraphic(tagIcon);
 
         FontIcon settingsIcon = new FontIcon(FontAwesome.COG);
@@ -109,8 +119,26 @@ public class AppController {
 
         nTagBtn.setOnMouseEntered(e -> nTagBtn.setCursor(Cursor.HAND));
         nTagBtn.setOnMouseExited(e -> nTagBtn.setCursor(Cursor.DEFAULT));
+        nTagBtn.setOnAction(e -> openNewTagWindow());
 
         nSnippetBtn.setOnMouseEntered(e -> nSnippetBtn.setCursor(Cursor.HAND));
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
+    }
+
+    private void openNewTagWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagWindow.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("New Tag");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            log.info("New Tag window opened");
+        }catch(Exception e) {
+            log.error("Unable to open new tag window: ", e);
+            throw new RuntimeException(e);
+        }
     }
 }
