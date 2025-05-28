@@ -147,7 +147,7 @@ public class AppController {
 
     private void openNewTagPage() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagPage.fxml"));
             Parent newTagContent = fxmlLoader.load();
 
             scrollContent.getChildren().clear();
