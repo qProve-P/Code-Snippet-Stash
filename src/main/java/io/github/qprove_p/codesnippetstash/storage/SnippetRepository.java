@@ -20,6 +20,17 @@ public class SnippetRepository {
         }
     }
 
+    public List<Snippet> findByFavourite() {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            log.info("Get favourite snippets");
+            return em.createQuery("select s from Snippet s where s.favourite = true", Snippet.class).getResultList();
+        }finally {
+            em.close();
+        }
+    }
+
     public List<Snippet> findByTag(String tag) {
         EntityManager em = JPAConnector.getEntityManager();
 

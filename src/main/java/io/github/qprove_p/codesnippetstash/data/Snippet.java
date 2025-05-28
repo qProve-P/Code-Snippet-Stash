@@ -26,6 +26,7 @@ public class Snippet {
     @Lob
     @Column(columnDefinition="TEXT")
     private String code;
+    private boolean favourite = false;
 
     public void addTag(Tag tag) {
         if(tags.size() > 4) {

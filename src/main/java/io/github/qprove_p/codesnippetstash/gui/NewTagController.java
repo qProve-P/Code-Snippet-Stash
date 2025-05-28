@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

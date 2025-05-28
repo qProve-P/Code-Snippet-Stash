@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Separator?>
 
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.NewTagController">
@@ -20,7 +19,6 @@
 
     <center>
         <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding:20;-fx-background-color:#252525;">
-            <Region prefWidth="60" HBox.hgrow="ALWAYS" />
             <TextField fx:id="nameField" promptText="Tag Name" style="-fx-max-width:200px;-fx-prompt-text-fill:#333;" />
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />
             <ColorPicker fx:id="colorPicker" />
