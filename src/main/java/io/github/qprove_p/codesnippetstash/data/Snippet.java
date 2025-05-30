@@ -18,6 +18,7 @@ import java.util.List;
 public class Snippet {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @ManyToMany

@@ -82,6 +82,7 @@ public class AppController {
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
 
+        // Icons
         FontIcon searchIcon = new FontIcon(FontAwesome.SEARCH);
         searchIcon.setIconSize(20);
         searchIcon.setIconColor(Color.web("#D9D9D9"));
@@ -111,11 +112,12 @@ public class AppController {
         settingsIcon.setIconColor(Color.web("#D9D9D9"));
         settingsBtn.setGraphic(settingsIcon);
 
-
+        // Layout
         contentArea.viewportBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
             scrollContent.setPrefWidth(newBounds.getWidth());
         });
 
+        // Buttons
         allBtn.setMaxWidth(Double.MAX_VALUE);
         favouritesBtn.setMaxWidth(Double.MAX_VALUE);
         VBox.setVgrow(allBtn, Priority.ALWAYS);
@@ -143,6 +145,7 @@ public class AppController {
 
         nSnippetBtn.setOnMouseEntered(e -> nSnippetBtn.setCursor(Cursor.HAND));
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
+        nSnippetBtn.setOnAction(e -> openNewSnippetPage());
     }
 
     private void openNewTagPage() {
@@ -163,6 +166,28 @@ public class AppController {
             log.info("Switch to new-tag page");
         }catch(Exception e) {
             log.error("Unable to switch to new-tag page: ", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void openNewSnippetPage() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newSnippetPage.fxml"));
+            Parent newSnippetContent = fxmlLoader.load();
+
+            scrollContent.getChildren().clear();
+            scrollContent.getColumnConstraints().clear();
+            scrollContent.getRowConstraints().clear();
+
+            scrollContent.prefWidthProperty().bind(contentArea.widthProperty());
+            scrollContent.prefHeightProperty().bind(contentArea.heightProperty());
+
+            scrollContent.setAlignment(Pos.CENTER);
+            scrollContent.add(newSnippetContent, 0, 0);
+
+            log.info("Switch to new-snippet page");
+        }catch(Exception e) {
+            log.error("Unable to switch to new-snippet page: ", e);
             throw new RuntimeException(e);
         }
     }

@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class NewTagController {
+public class NewTagController implements Page {
 
     @FXML
     private TextField nameField;
@@ -39,14 +39,23 @@ public class NewTagController {
         closeWindow();
     }
 
+    @Override
     public void setOnCloseCallback(Runnable onCloseCallback) {
         this.onCloseCallback = onCloseCallback;
     }
 
-    private void closeWindow() {
+    @Override
+    public void closeWindow() {
         if(onCloseCallback != null) {
             onCloseCallback.run();
         }
         log.info("Closing new-tag page");
+    }
+
+    @FXML
+    void initialize() {
+        assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'newTagPage.fxml'.";
+        assert colorPicker != null : "fx:id=\"colorPicker\" was not injected: check your FXML file 'newTagPage.fxml'.";
+        assert newTagLabel != null : "fx:id=\"newTagLabel\" was not injected: check your FXML file 'newTagPage.fxml'.";
     }
 }
