@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
@@ -76,7 +77,7 @@ public class AppController {
         assert nTagBtn != null : "fx:id=\"nTagBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert root != null : "fx:id=\"root\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert searchBar != null : "fx:id=\"searchBar\" was not injected: check your FXML file 'appWindow.fxml'.";
-        assert searchBar != null : "fx:id=\"searchBar\" was not injected: check your FXML file 'appWindow.fxml'.";
+        assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert homeBtn != null : "fx:id=\"homeBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert settingsBtn != null : "fx:id=\"settingsBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
@@ -151,7 +152,12 @@ public class AppController {
     private void openNewTagPage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagPage.fxml"));
-            Parent newTagContent = fxmlLoader.load();
+            Region newTagContent = fxmlLoader.load();
+
+            Scene scene = contentArea.getScene();
+            if(scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+            }
 
             scrollContent.getChildren().clear();
             scrollContent.getColumnConstraints().clear();
@@ -174,6 +180,8 @@ public class AppController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newSnippetPage.fxml"));
             Parent newSnippetContent = fxmlLoader.load();
+
+            newSnippetContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
 
             scrollContent.getChildren().clear();
             scrollContent.getColumnConstraints().clear();

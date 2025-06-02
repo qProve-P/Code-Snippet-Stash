@@ -19,13 +19,14 @@
 
     <center>
         <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding:20;-fx-background-color:#252525;">
-            <TextField fx:id="nameField" promptText="Tag Name" style="-fx-max-width:200px;-fx-prompt-text-fill:#333;" />
+            <TextField fx:id="nameFieldT" promptText="Tag Name" />
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />
-            <ColorPicker fx:id="colorPicker" />
+            <ColorPicker fx:id="colorPickerT" />
             <Region prefWidth="60" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" spacing="10">
-                <Button onAction="#handleSave" text="Create" />
-                <Button onAction="#handleCancel" text="Cancel" />
+                <Button id="createBtn" fx:id="createBtnT" onAction="#handleSave" text="Create" />
+                <Region prefWidth="60" HBox.hgrow="ALWAYS" />
+                <Button id="cancelBtn" fx:id="cancelBtnT" onAction="#handleCancel" text="Cancel" />
             </HBox>
         </VBox>
     </center>

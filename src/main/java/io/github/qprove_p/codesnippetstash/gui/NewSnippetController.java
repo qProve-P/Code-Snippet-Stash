@@ -13,23 +13,23 @@ import lombok.extern.log4j.Log4j2;
 public class NewSnippetController implements Page {
 
     @FXML
-    private TextField nameField;
+    private TextField nameFieldS;
 
     @FXML
-    private TextArea codeField;
+    private TextArea codeFieldS;
 
     @FXML
-    private ListView<Tag> tagSelect;
+    private ListView<Tag> tagSelectS;
 
     private Runnable onCloseCallback;
 
     @FXML
     private void handleSave() {
-        String name = nameField.getText();
-        String code = codeField.getText();
+        String name = nameFieldS.getText();
+        String code = codeFieldS.getText();
 
         Snippet snippet = Snippet.builder().name(name).code(code).build();
-        for(Tag tag : tagSelect.getSelectionModel().getSelectedItems()) {
+        for(Tag tag : tagSelectS.getSelectionModel().getSelectedItems()) {
             snippet.addTag(tag);
         }
 
@@ -58,8 +58,8 @@ public class NewSnippetController implements Page {
 
     @FXML
     private void initialize() {
-        assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
-        assert codeField != null : "fx:id=\"codeField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
-        assert tagSelect != null : "fx:id=\"tagSelect\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
+        assert nameFieldS != null : "fx:id=\"nameField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
+        assert codeFieldS != null : "fx:id=\"codeField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
+        assert tagSelectS != null : "fx:id=\"tagSelect\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
     }
 }
