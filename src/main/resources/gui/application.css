@@ -1,5 +1,22 @@
 /* application.css */
 
+/* ------------------- Common ------------------- */
+
+#createBtn {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10;
+    -fx-background-color: #d9d9d9;
+}
+
+#cancelBtn {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10;
+    -fx-text-fill: #d9d9d9;
+    -fx-background-color: #444444;
+}
+
 .top-bar {
     -fx-background-color: #333;
     -fx-padding: 8px;
@@ -24,6 +41,8 @@
     -fx-background-radius: 10px;
     -fx-prompt-text-fill:#333;
 }
+
+/* ------------------- Main Page ------------------- */
 
 #contentArea {
     -fx-background-color: transparent;
@@ -143,23 +162,6 @@
     -fx-background-color: #2d2d2d;
 }
 
-/* ------------------- Common ------------------- */
-
-#createBtn {
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 10;
-    -fx-background-color: #d9d9d9;
-}
-
-#cancelBtn {
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 10;
-    -fx-text-fill: #d9d9d9;
-    -fx-background-color: #444444;
-}
-
 /* ------------------- New Tag Page ------------------- */
 
 #colorPickerT {
@@ -171,4 +173,28 @@
     -fx-background-radius: 7px;
     -fx-prompt-text-fill:#333;
     -fx-min-width: 230px;
+}
+
+/* ------------------- New Snippet Page ------------------- */
+
+#codeFieldS {
+    -fx-control-inner-background: #d9d9d9;
+    -fx-text-fill: #131313;
+    -fx-border-color: #999;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-prompt-text-fill:#333;
+    -fx-min-width: 450px;
+    -fx-min-height: 300px;
+}
+
+#tagSelectS {
+    -fx-control-inner-background: #d9d9d9;
+    -fx-text-fill: #131313;
+    -fx-border-color: #999;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    /*-fx-prompt-text-fill:#333;*/
 }
