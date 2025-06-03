@@ -16,7 +16,6 @@ public class TagRepository {
             log.info("Get all tags");
             return em.createQuery("select t from Tag t", Tag.class).getResultList();
         }finally {
-            log.error("Can't load tags");
             em.close();
         }
     }

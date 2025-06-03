@@ -16,7 +16,6 @@ public class SnippetRepository {
             log.info("Get all snippets");
             return em.createQuery("select s from Snippet s", Snippet.class).getResultList();
         }finally {
-            log.error("Can't load snippets");
             em.close();
         }
     }

@@ -28,7 +28,7 @@ public class NewTagController implements Page {
     @FXML
     private Button cancelBtnT;
 
-    private Runnable onCloseCallback;
+    private AppController parentController;
 
     @FXML
     private void handleSave() {
@@ -48,16 +48,18 @@ public class NewTagController implements Page {
     }
 
     @Override
-    public void setOnCloseCallback(Runnable onCloseCallback) {
-        this.onCloseCallback = onCloseCallback;
+    public void setParentController(AppController parentController) {
+        this.parentController = parentController;
     }
 
     @Override
     public void closeWindow() {
-        if(onCloseCallback != null) {
-            onCloseCallback.run();
+        try {
+            parentController.openHomePage();
+        }catch(Exception e) {
+            log.error("Unable to switch to home page: ", e);
+            throw new RuntimeException(e);
         }
-        log.info("Closing new-tag page");
     }
 
     @FXML

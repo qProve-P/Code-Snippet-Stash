@@ -3,6 +3,8 @@ package io.github.qprove_p.codesnippetstash.gui;
 import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
 import io.github.qprove_p.codesnippetstash.storage.SnippetRepository;
+import io.github.qprove_p.codesnippetstash.storage.TagRepository;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -10,6 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.List;
 
 @Log4j2
 public class NewSnippetController implements Page {
@@ -29,7 +33,8 @@ public class NewSnippetController implements Page {
     @FXML
     private Button cancelBtnS;
 
-    private Runnable onCloseCallback;
+    private AppController parentController;
+    private TagRepository tagRepository = new TagRepository();
 
     @FXML
     private void handleSave() {
@@ -52,16 +57,17 @@ public class NewSnippetController implements Page {
     }
 
     @Override
-    public void setOnCloseCallback(Runnable onCloseCallback) {
-        this.onCloseCallback = onCloseCallback;
+    public void setParentController(AppController parentController) {
+        this.parentController = parentController;
     }
 
     @Override
     public void closeWindow() {
-        if(onCloseCallback != null) {
-            onCloseCallback.run();
+        if(parentController != null) {
+            parentController.openHomePage();
+        }else {
+            log.error("Unable to switch to home page");
         }
-        log.info("Closing new-snippet page");
     }
 
     @FXML
@@ -77,5 +83,33 @@ public class NewSnippetController implements Page {
 
         cancelBtnS.setOnMouseEntered(e -> cancelBtnS.setCursor(Cursor.HAND));
         cancelBtnS.setOnMouseExited(e -> cancelBtnS.setCursor(Cursor.DEFAULT ));
+
+        loadTags();
+    }
+
+    private void loadTags() {
+        try {
+            List<Tag> tags = tagRepository.findAll();
+
+            tagSelectS.getItems().clear();
+            tagSelectS.setItems(FXCollections.observableArrayList(tags));
+
+            tagSelectS.setCellFactory(listView -> new javafx.scene.control.ListCell<Tag>() {
+                @Override
+                protected void updateItem(Tag tag, boolean empty) {
+                    super.updateItem(tag, empty);
+                    if(empty || tag == null) {
+                        setText(null);
+                    }else {
+                        setText(tag.getName());
+                    }
+                }
+            });
+
+            tagSelectS.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+        }catch(Exception e) {
+            log.error("Error loading tags", e);
+            throw new RuntimeException(e);
+        }
     }
 }

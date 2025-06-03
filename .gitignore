@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 logs/
 design/
+*.db
 
 ### IntelliJ IDEA ###
 .idea/

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -83,6 +84,7 @@ public class AppController {
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
 
+
         // Icons
         FontIcon searchIcon = new FontIcon(FontAwesome.SEARCH);
         searchIcon.setIconSize(20);
@@ -154,6 +156,9 @@ public class AppController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newTagPage.fxml"));
             Region newTagContent = fxmlLoader.load();
 
+            NewTagController newTagController = fxmlLoader.getController();
+            newTagController.setParentController(this);
+
             Scene scene = contentArea.getScene();
             if(scene != null) {
                 scene.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
@@ -200,9 +205,33 @@ public class AppController {
         }
     }
 
-    private void openHomePage() {
-        scrollContent.getChildren().clear();
+    public void openHomePage() {
 
-        log.info("Switch to home view");
+        try {
+            scrollContent.getChildren().clear();
+            scrollContent.getColumnConstraints().clear();
+            scrollContent.getRowConstraints().clear();
+
+//            ColumnConstraints col1 = new ColumnConstraints();
+//            col1.setPercentWidth(50);
+//            col1.setHgrow(Priority.ALWAYS);
+//
+//            ColumnConstraints col2 = new ColumnConstraints();
+//            col2.setPercentWidth(50);
+//            col2.setHgrow(Priority.ALWAYS);
+//
+//            scrollContent.getColumnConstraints().addAll(col1, col2);
+//            scrollContent.setHgap(10);
+//            scrollContent.setVgap(10);
+//            scrollContent.setAlignment(Pos.TOP_CENTER);
+//
+//            // Add dynamic content directly to scrollContent
+//            addDynamicHomeContent();
+
+            log.info("Switch to home page");
+        }catch(Exception e) {
+            log.error("Unable to switch to home page: ", e);
+            throw new RuntimeException(e);
+        }
     }
 }

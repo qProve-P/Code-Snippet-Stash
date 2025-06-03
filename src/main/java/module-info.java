@@ -11,7 +11,7 @@ module code.snippet.stash {
     requires org.kordamp.ikonli.fontawesome;
 
     opens io.github.qprove_p.codesnippetstash.gui to javafx.fxml;
-    opens io.github.qprove_p.codesnippetstash.data;
+    opens io.github.qprove_p.codesnippetstash.data to jakarta.persistence, org.hibernate.orm.core;
 
     exports io.github.qprove_p.codesnippetstash.gui to javafx.fxml, javafx.graphics;
 }
