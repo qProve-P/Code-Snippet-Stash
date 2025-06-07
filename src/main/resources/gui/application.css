@@ -42,19 +42,7 @@
     -fx-prompt-text-fill:#333;
 }
 
-/* ------------------- Main Page ------------------- */
-
-#contentArea {
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-    -fx-border-width: 0;
-}
-
-#contentArea .viewport {
-    -fx-background-color: #252525;
-    -fx-padding: 0;
-    -fx-border-width: 0;
-}
+/* ------------------- Layout ------------------- */
 
 #sideMenu {
     -fx-padding: 0;
@@ -160,6 +148,20 @@
 }
 #favouritesBtn:hover {
     -fx-background-color: #2d2d2d;
+}
+
+/* ------------------- Home Page ------------------- */
+
+#contentArea {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+#contentArea .viewport {
+    -fx-background-color: #252525;
+    -fx-padding: 0;
+    -fx-border-width: 0;
 }
 
 /* ------------------- New Tag Page ------------------- */

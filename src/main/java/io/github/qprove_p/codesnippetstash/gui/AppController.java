@@ -4,14 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -32,12 +29,6 @@ public class AppController {
 
     @FXML
     private Button allBtn;
-
-    @FXML
-    private ScrollPane contentArea;
-
-    @FXML
-    private GridPane scrollContent;
 
     @FXML
     private Button favouritesBtn;
@@ -70,9 +61,11 @@ public class AppController {
     private HBox topBar;
 
     @FXML
+    private AnchorPane content;
+
+    @FXML
     void initialize() {
         assert allBtn != null : "fx:id=\"allBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
-        assert contentArea != null : "fx:id=\"contentArea\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert favouritesBtn != null : "fx:id=\"favouritesBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert nSnippetBtn != null : "fx:id=\"nSnippetBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert nTagBtn != null : "fx:id=\"nTagBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
@@ -83,6 +76,7 @@ public class AppController {
         assert settingsBtn != null : "fx:id=\"settingsBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
+        assert content != null : "fx:id=\"content\" was not injected: check your FXML file 'appWindow.fxml'.";
 
 
         // Icons
@@ -115,11 +109,6 @@ public class AppController {
         settingsIcon.setIconColor(Color.web("#D9D9D9"));
         settingsBtn.setGraphic(settingsIcon);
 
-        // Layout
-        contentArea.viewportBoundsProperty().addListener((obs, oldBounds, newBounds) -> {
-            scrollContent.setPrefWidth(newBounds.getWidth());
-        });
-
         // Buttons
         allBtn.setMaxWidth(Double.MAX_VALUE);
         favouritesBtn.setMaxWidth(Double.MAX_VALUE);
@@ -149,6 +138,9 @@ public class AppController {
         nSnippetBtn.setOnMouseEntered(e -> nSnippetBtn.setCursor(Cursor.HAND));
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
         nSnippetBtn.setOnAction(e -> openNewSnippetPage());
+
+        // Load home page on start
+        openHomePage();
     }
 
     private void openNewTagPage() {
@@ -159,20 +151,19 @@ public class AppController {
             NewTagController newTagController = fxmlLoader.getController();
             newTagController.setParentController(this);
 
-            Scene scene = contentArea.getScene();
+            Scene scene = content.getScene();
             if(scene != null) {
                 scene.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
             }
 
-            scrollContent.getChildren().clear();
-            scrollContent.getColumnConstraints().clear();
-            scrollContent.getRowConstraints().clear();
+            content.getChildren().clear();
 
-            scrollContent.prefWidthProperty().bind(contentArea.widthProperty());
-            scrollContent.prefHeightProperty().bind(contentArea.heightProperty());
+            AnchorPane.setTopAnchor(newTagContent, 0.0);
+            AnchorPane.setBottomAnchor(newTagContent, 0.0);
+            AnchorPane.setLeftAnchor(newTagContent, 0.0);
+            AnchorPane.setRightAnchor(newTagContent, 0.0);
 
-            scrollContent.setAlignment(Pos.CENTER);
-            scrollContent.add(newTagContent, 0, 0);
+            content.getChildren().add(newTagContent);
 
             log.info("Switch to new-tag page");
         }catch(Exception e) {
@@ -186,17 +177,22 @@ public class AppController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newSnippetPage.fxml"));
             Parent newSnippetContent = fxmlLoader.load();
 
-            newSnippetContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+            NewSnippetController newSnippetController = fxmlLoader.getController();
+            newSnippetController.setParentController(this);
 
-            scrollContent.getChildren().clear();
-            scrollContent.getColumnConstraints().clear();
-            scrollContent.getRowConstraints().clear();
+            Scene scene = content.getScene();
+            if(scene != null) {
+                newSnippetContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+            }
 
-            scrollContent.prefWidthProperty().bind(contentArea.widthProperty());
-            scrollContent.prefHeightProperty().bind(contentArea.heightProperty());
+            content.getChildren().clear();
 
-            scrollContent.setAlignment(Pos.CENTER);
-            scrollContent.add(newSnippetContent, 0, 0);
+            AnchorPane.setTopAnchor(newSnippetContent, 0.0);
+            AnchorPane.setBottomAnchor(newSnippetContent, 0.0);
+            AnchorPane.setLeftAnchor(newSnippetContent, 0.0);
+            AnchorPane.setRightAnchor(newSnippetContent, 0.0);
+
+            content.getChildren().add(newSnippetContent);
 
             log.info("Switch to new-snippet page");
         }catch(Exception e) {
@@ -208,25 +204,25 @@ public class AppController {
     public void openHomePage() {
 
         try {
-            scrollContent.getChildren().clear();
-            scrollContent.getColumnConstraints().clear();
-            scrollContent.getRowConstraints().clear();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/homePage.fxml"));
+            Parent homeContent = fxmlLoader.load();
 
-//            ColumnConstraints col1 = new ColumnConstraints();
-//            col1.setPercentWidth(50);
-//            col1.setHgrow(Priority.ALWAYS);
-//
-//            ColumnConstraints col2 = new ColumnConstraints();
-//            col2.setPercentWidth(50);
-//            col2.setHgrow(Priority.ALWAYS);
-//
-//            scrollContent.getColumnConstraints().addAll(col1, col2);
-//            scrollContent.setHgap(10);
-//            scrollContent.setVgap(10);
-//            scrollContent.setAlignment(Pos.TOP_CENTER);
-//
-//            // Add dynamic content directly to scrollContent
-//            addDynamicHomeContent();
+            HomeController homeController = fxmlLoader.getController();
+            homeController.setParentController(this);
+
+            Scene scene = content.getScene();
+            if(scene != null) {
+                homeContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+            }
+
+            content.getChildren().clear();
+
+            AnchorPane.setTopAnchor(homeContent, 0.0);
+            AnchorPane.setBottomAnchor(homeContent, 0.0);
+            AnchorPane.setLeftAnchor(homeContent, 0.0);
+            AnchorPane.setRightAnchor(homeContent, 0.0);
+
+            content.getChildren().add(homeContent);
 
             log.info("Switch to home page");
         }catch(Exception e) {

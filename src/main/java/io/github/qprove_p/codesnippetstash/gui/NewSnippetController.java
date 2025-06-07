@@ -75,8 +75,8 @@ public class NewSnippetController implements Page {
         assert nameFieldS != null : "fx:id=\"nameField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
         assert codeFieldS != null : "fx:id=\"codeField\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
         assert tagSelectS != null : "fx:id=\"tagSelect\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
-        assert createBtnS != null : "fx:id=\"createBtnS\" was not injected: check your FXML file 'newTagPage.fxml'.";
-        assert cancelBtnS != null : "fx:id=\"cancelBtnS\" was not injected: check your FXML file 'newTagPage.fxml'.";
+        assert createBtnS != null : "fx:id=\"createBtnS\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
+        assert cancelBtnS != null : "fx:id=\"cancelBtnS\" was not injected: check your FXML file 'newSnippetPage.fxml'.";
 
         createBtnS.setOnMouseEntered(e -> createBtnS.setCursor(Cursor.HAND));
         createBtnS.setOnMouseExited(e -> createBtnS.setCursor(Cursor.DEFAULT ));
