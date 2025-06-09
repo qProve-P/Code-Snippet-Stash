@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -18,6 +19,9 @@ public class NewTagController implements Page {
 
     @FXML
     private ColorPicker colorPickerT;
+
+    @FXML
+    private HBox topTagLabelBar;
 
     @FXML
     private Label newTagLabel;
@@ -66,6 +70,7 @@ public class NewTagController implements Page {
     void initialize() {
         assert nameFieldT != null : "fx:id=\"nameField\" was not injected: check your FXML file 'newTagPage.fxml'.";
         assert colorPickerT != null : "fx:id=\"colorPicker\" was not injected: check your FXML file 'newTagPage.fxml'.";
+        assert topTagLabelBar != null : "fx:id=\"topTagLabelBar\" was not injected: check your FXML file 'newTagPage.fxml'.";
         assert newTagLabel != null : "fx:id=\"newTagLabel\" was not injected: check your FXML file 'newTagPage.fxml'.";
         assert createBtnT != null : "fx:id=\"createBtnT\" was not injected: check your FXML file 'newTagPage.fxml'.";
         assert cancelBtnT != null : "fx:id=\"cancelBtnT\" was not injected: check your FXML file 'newTagPage.fxml'.";

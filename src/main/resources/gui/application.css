@@ -166,6 +166,21 @@
 
 /* ------------------- New Tag Page ------------------- */
 
+#topTagLabelBar {
+    -fx-background-color: #252525;
+}
+
+#newTagLabel {
+    -fx-text-fill: #d9d9d9;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#centerTagVBox {
+    -fx-padding: 200;
+    -fx-background-color: #252525;
+}
+
 #colorPickerT {
     -fx-background-color: #d9d9d9;
     -fx-text-fill: #131313;
@@ -178,6 +193,26 @@
 }
 
 /* ------------------- New Snippet Page ------------------- */
+
+#topSnippetLabelBar {
+    -fx-background-color: #252525;
+}
+
+#newSnippetLabel {
+    -fx-text-fill: #d9d9d9;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#centerSnippetVBox {
+    -fx-padding: 20;
+    -fx-background-color: #252525;
+}
+
+#nameFieldS {
+    -fx-max-width: 200px;
+    -fx-prompt-text-fill: #333;
+}
 
 #codeFieldS {
     -fx-control-inner-background: #d9d9d9;
@@ -198,5 +233,4 @@
     -fx-border-width: 1px;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    /*-fx-prompt-text-fill:#333;*/
 }
