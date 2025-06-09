@@ -2,6 +2,8 @@ package io.github.qprove_p.codesnippetstash.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -9,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -64,6 +67,9 @@ public class AppController {
     private AnchorPane content;
 
     @FXML
+    private ProgressIndicator progressIndicator;
+
+    @FXML
     void initialize() {
         assert allBtn != null : "fx:id=\"allBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert favouritesBtn != null : "fx:id=\"favouritesBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
@@ -77,7 +83,10 @@ public class AppController {
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert content != null : "fx:id=\"content\" was not injected: check your FXML file 'appWindow.fxml'.";
+        assert progressIndicator != null : "fx:id=\"progressIndicator\" was not injected: check your FXML file 'appWindow.fxml'.";
 
+        // Hide progressIndicator
+        progressIndicator.setVisible(false);
 
         // Icons
         FontIcon searchIcon = new FontIcon(FontAwesome.SEARCH);
@@ -173,17 +182,28 @@ public class AppController {
     }
 
     private void openNewSnippetPage() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newSnippetPage.fxml"));
-            Parent newSnippetContent = fxmlLoader.load();
+        progressIndicator.setVisible(true);
 
-            NewSnippetController newSnippetController = fxmlLoader.getController();
-            newSnippetController.setParentController(this);
+        Task<Parent> loadTask = new Task<Parent>() {
+            @Override
+            protected Parent call() throws Exception {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/newSnippetPage.fxml"));
+                Parent newSnippetContent = fxmlLoader.load();
 
-            Scene scene = content.getScene();
-            if(scene != null) {
-                newSnippetContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+                NewSnippetController newSnippetController = fxmlLoader.getController();
+                newSnippetController.setParentController(AppController.this);
+
+                Scene scene = content.getScene();
+                if(scene != null) {
+                    newSnippetContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+                }
+
+                return newSnippetContent;
             }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            Parent newSnippetContent = loadTask.getValue();
 
             content.getChildren().clear();
 
@@ -194,11 +214,20 @@ public class AppController {
 
             content.getChildren().add(newSnippetContent);
 
+            progressIndicator.setVisible(false);
+
             log.info("Switch to new-snippet page");
-        }catch(Exception e) {
-            log.error("Unable to switch to new-snippet page: ", e);
-            throw new RuntimeException(e);
-        }
+        });
+
+        loadTask.setOnFailed(e -> {
+            progressIndicator.setVisible(false);
+            Throwable exception = loadTask.getException();
+
+            log.error("Unable to switch to new-snippet page: ", exception);
+            throw new RuntimeException(exception);
+        });
+
+        new Thread(loadTask).start();
     }
 
     public void openHomePage() {

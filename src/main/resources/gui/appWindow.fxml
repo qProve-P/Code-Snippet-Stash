@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.AppController">
     <top>
         <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1037.0" spacing="10" styleClass="top-bar">
@@ -29,8 +31,9 @@
     </left>
 
    <center>
-       <AnchorPane fx:id="content">
-
-       </AnchorPane>
+       <StackPane>
+           <AnchorPane fx:id="content" />
+           <ProgressIndicator fx:id="progressIndicator" visible="false" />
+       </StackPane>
    </center>
 </BorderPane>
