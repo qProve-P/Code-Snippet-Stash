@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class DBConnector {
 
-    private final String URL = "jdbc:sqlite:snippets.db";
+    private final String URL = "jdbc:sqlite:codesnippetstash.db";
 }

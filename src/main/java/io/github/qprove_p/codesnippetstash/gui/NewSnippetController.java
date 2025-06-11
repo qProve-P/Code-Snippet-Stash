@@ -125,7 +125,9 @@ public class NewSnippetController implements Page {
 
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
+
             log.error("Error loading tags", ex);
+            throw new RuntimeException(ex);
         });
 
         new Thread(task).start();

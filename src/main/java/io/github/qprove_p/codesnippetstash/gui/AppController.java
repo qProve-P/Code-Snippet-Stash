@@ -221,28 +221,38 @@ public class AppController {
 
         loadTask.setOnFailed(e -> {
             progressIndicator.setVisible(false);
-            Throwable exception = loadTask.getException();
+            Throwable ex = loadTask.getException();
 
-            log.error("Unable to switch to new-snippet page: ", exception);
-            throw new RuntimeException(exception);
+            log.error("Unable to switch to new-snippet page: ", ex);
+            throw new RuntimeException(ex);
         });
 
         new Thread(loadTask).start();
     }
 
     public void openHomePage() {
+        progressIndicator.setVisible(true);
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/homePage.fxml"));
-            Parent homeContent = fxmlLoader.load();
+        Task<Parent> loadTask = new Task<>() {
+            @Override
+            protected Parent call() throws Exception {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/homePage.fxml"));
+                Parent homeContent = fxmlLoader.load();
 
-            HomeController homeController = fxmlLoader.getController();
-            homeController.setParentController(this);
+                HomeController homeController = fxmlLoader.getController();
+                homeController.setParentController(AppController.this);
 
-            Scene scene = content.getScene();
-            if(scene != null) {
-                homeContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+                Scene scene = content.getScene();
+                if(scene != null) {
+                    homeContent.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
+                }
+
+                return homeContent;
             }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            Parent homeContent = loadTask.getValue();
 
             content.getChildren().clear();
 
@@ -253,10 +263,19 @@ public class AppController {
 
             content.getChildren().add(homeContent);
 
+            progressIndicator.setVisible(false);
+
             log.info("Switch to home page");
-        }catch(Exception e) {
-            log.error("Unable to switch to home page: ", e);
-            throw new RuntimeException(e);
-        }
+        });
+
+        loadTask.setOnFailed(e -> {
+            progressIndicator.setVisible(false);
+            Throwable ex = loadTask.getException();
+
+            log.error("Unable to switch to home page: ", ex);
+            throw new RuntimeException(ex);
+        });
+
+        new Thread(loadTask).start();
     }
 }
