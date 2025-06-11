@@ -5,6 +5,7 @@ import io.github.qprove_p.codesnippetstash.data.Tag;
 import io.github.qprove_p.codesnippetstash.storage.SnippetRepository;
 import io.github.qprove_p.codesnippetstash.storage.TagRepository;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -94,8 +95,15 @@ public class NewSnippetController implements Page {
     }
 
     private void loadTags() {
-        try {
-            List<Tag> tags = tagRepository.findAll();
+        Task<List<Tag>> task = new Task<>() {
+            @Override
+            protected List<Tag> call() {
+                return tagRepository.findAll();
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            List<Tag> tags = task.getValue();
 
             tagSelectS.getItems().clear();
             tagSelectS.setItems(FXCollections.observableArrayList(tags));
@@ -113,9 +121,13 @@ public class NewSnippetController implements Page {
             });
 
             tagSelectS.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
-        }catch(Exception e) {
-            log.error("Error loading tags", e);
-            throw new RuntimeException(e);
-        }
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            log.error("Error loading tags", ex);
+        });
+
+        new Thread(task).start();
     }
 }
