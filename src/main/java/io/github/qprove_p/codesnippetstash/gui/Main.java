@@ -1,6 +1,8 @@
 package io.github.qprove_p.codesnippetstash.gui;
 
 
+import io.github.qprove_p.codesnippetstash.storage.JPAConnector;
+import jakarta.persistence.EntityManager;
 import lombok.extern.log4j.Log4j2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -35,9 +37,23 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            preloadHibernate();
+
         }catch(IOException e) {
             log.error("Error loading GUI: ", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    private void preloadHibernate() {
+        try {
+            EntityManager em = JPAConnector.getEntityManager();
+            em.close();
+
+            log.info("Hibernate preloaded");
+        }catch(Exception e) {
+            e.printStackTrace();
+            log.error("Error preloading Hibernate: ", e);
         }
     }
 }
