@@ -20,6 +20,17 @@ public class TagRepository {
         }
     }
 
+    public List<Tag> getAllDistinct() {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            log.info("Get all distinct tags");
+            return em.createQuery("select distinct t from Tag t", Tag.class).getResultList();
+        }finally {
+            em.close();
+        }
+    }
+
     public void save(Tag tag) {
         EntityManager em = JPAConnector.getEntityManager();
 

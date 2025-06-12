@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -46,7 +47,7 @@ public class NewSnippetController implements Page {
         String name = nameFieldS.getText();
         String code = codeFieldS.getText();
 
-        Snippet snippet = Snippet.builder().name(name).code(code).build();
+        Snippet snippet = Snippet.builder().name(name).code(code).tags(new ArrayList<>()).build();
         for(Tag tag : tagSelectS.getSelectionModel().getSelectedItems()) {
             snippet.addTag(tag);
         }

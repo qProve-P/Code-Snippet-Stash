@@ -19,7 +19,6 @@
             <Button fx:id="homeBtn" />
             <Button fx:id="nSnippetBtn" />
             <Button fx:id="nTagBtn" />
-            <Button fx:id="settingsBtn" />
         </HBox>
     </top>
 

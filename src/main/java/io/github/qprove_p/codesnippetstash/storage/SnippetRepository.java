@@ -1,6 +1,7 @@
 package io.github.qprove_p.codesnippetstash.storage;
 
 import io.github.qprove_p.codesnippetstash.data.Snippet;
+import io.github.qprove_p.codesnippetstash.data.Tag;
 import jakarta.persistence.EntityManager;
 import lombok.extern.log4j.Log4j2;
 

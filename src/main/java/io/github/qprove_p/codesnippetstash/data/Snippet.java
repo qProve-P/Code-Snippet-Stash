@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Snippet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="snippet_tag", joinColumns=@JoinColumn(name="snippet_id"), inverseJoinColumns=@JoinColumn(name="tag_id"))
     private List<Tag> tags;
     @Lob
@@ -30,7 +31,7 @@ public class Snippet {
     private boolean favourite = false;
 
     public void addTag(Tag tag) {
-        if(tags.size() > 4) {
+        if(tags.size() >= 4) {
             log.warn("Add tag fail: max 4 tags.");
             throw new IllegalArgumentException("Cannot add more than 4 tags");
         }

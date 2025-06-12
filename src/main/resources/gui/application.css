@@ -160,6 +160,28 @@
     -fx-background-color: #2d2d2d;
 }
 
+.sideMenuBtn {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border-style: none;
+    -fx-border-radius: 0;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-padding: 15px;
+    -fx-text-fill: #fff;
+}
+.sideMenuBtn:hover {
+    -fx-background-color: #2d2d2d;
+    -fx-cursor: hand;
+}
+.even {
+    -fx-background-color: #565656;
+}
+
+.odd {
+    -fx-background-color: #3C3C3C;
+}
+
 /* ------------------- Home Page ------------------- */
 
 #contentArea {
@@ -172,6 +194,21 @@
     -fx-background-color: #252525;
     -fx-padding: 0;
     -fx-border-width: 0;
+}
+
+#snippetContainer {
+    -fx-border-color: transparent transparent #414141 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 5px 10px;
+}
+#snippetContainer:hover {
+    -fx-background-color: #2d2d2d;
+    -fx-cursor: hand;
+}
+
+#snippetName {
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
 }
 
 /* ------------------- New Tag Page ------------------- */

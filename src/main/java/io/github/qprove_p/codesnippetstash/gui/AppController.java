@@ -1,8 +1,12 @@
 package io.github.qprove_p.codesnippetstash.gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import io.github.qprove_p.codesnippetstash.data.Snippet;
+import io.github.qprove_p.codesnippetstash.data.Tag;
+import io.github.qprove_p.codesnippetstash.storage.TagRepository;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,9 +59,6 @@ public class AppController {
     private Button homeBtn;
 
     @FXML
-    private Button settingsBtn;
-
-    @FXML
     private VBox sideMenu;
 
     @FXML
@@ -69,6 +70,8 @@ public class AppController {
     @FXML
     private ProgressIndicator progressIndicator;
 
+    private TagRepository tagRepository = new TagRepository();
+
     @FXML
     void initialize() {
         assert allBtn != null : "fx:id=\"allBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
@@ -79,7 +82,6 @@ public class AppController {
         assert searchBar != null : "fx:id=\"searchBar\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert homeBtn != null : "fx:id=\"homeBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
-        assert settingsBtn != null : "fx:id=\"settingsBtn\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert sideMenu != null : "fx:id=\"sideMenu\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert topBar != null : "fx:id=\"topBar\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert content != null : "fx:id=\"content\" was not injected: check your FXML file 'appWindow.fxml'.";
@@ -113,11 +115,6 @@ public class AppController {
         nTagBtn.setText("+");
         nTagBtn.setGraphic(tagIcon);
 
-        FontIcon settingsIcon = new FontIcon(FontAwesome.COG);
-        settingsIcon.setIconSize(20);
-        settingsIcon.setIconColor(Color.web("#D9D9D9"));
-        settingsBtn.setGraphic(settingsIcon);
-
         // Buttons
         allBtn.setMaxWidth(Double.MAX_VALUE);
         favouritesBtn.setMaxWidth(Double.MAX_VALUE);
@@ -137,9 +134,6 @@ public class AppController {
         homeBtn.setOnMouseExited(e -> homeBtn.setCursor(Cursor.DEFAULT));
         homeBtn.setOnAction(e -> openHomePage());
 
-        settingsBtn.setOnMouseEntered(e -> settingsBtn.setCursor(Cursor.HAND));
-        settingsBtn.setOnMouseExited(e -> settingsBtn.setCursor(Cursor.DEFAULT));
-
         nTagBtn.setOnMouseEntered(e -> nTagBtn.setCursor(Cursor.HAND));
         nTagBtn.setOnMouseExited(e -> nTagBtn.setCursor(Cursor.DEFAULT));
         nTagBtn.setOnAction(e -> openNewTagPage());
@@ -147,6 +141,8 @@ public class AppController {
         nSnippetBtn.setOnMouseEntered(e -> nSnippetBtn.setCursor(Cursor.HAND));
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
         nSnippetBtn.setOnAction(e -> openNewSnippetPage());
+
+        loadSidebar();
 
         // Load home page on start
         openHomePage();
@@ -277,5 +273,43 @@ public class AppController {
         });
 
         new Thread(loadTask).start();
+    }
+
+    public void loadSidebar() {
+        Task<List<Tag>> task = new Task<>() {
+            @Override
+            protected List<Tag> call() {
+                return tagRepository.getAllDistinct();
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            List<Tag> tags = task.getValue();
+
+            for (int i = 0; i < tags.size(); i++) {
+                Tag tag = tags.get(i);
+
+                Button tagButton = new Button(tag.getName());
+                tagButton.setPrefWidth(Double.MAX_VALUE);
+                tagButton.getStyleClass().add("sideMenuBtn");
+
+                if(i % 2 == 0) {
+                    tagButton.getStyleClass().add("even");
+                }else {
+                    tagButton.getStyleClass().add("odd");
+                }
+
+                sideMenu.getChildren().add(tagButton);
+            }
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+
+            log.error("Error loading sidebar: ", ex);
+            throw new RuntimeException(ex);
+        });
+
+        new Thread(task).start();
     }
 }
