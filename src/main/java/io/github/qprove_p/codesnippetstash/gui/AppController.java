@@ -1,5 +1,6 @@
 package io.github.qprove_p.codesnippetstash.gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -7,16 +8,16 @@ import java.util.ResourceBundle;
 import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
 import io.github.qprove_p.codesnippetstash.storage.TagRepository;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -59,6 +60,9 @@ public class AppController {
     private Button homeBtn;
 
     @FXML
+    private ScrollPane sideMenuScrollPane;
+
+    @FXML
     private VBox sideMenu;
 
     @FXML
@@ -71,6 +75,7 @@ public class AppController {
     private ProgressIndicator progressIndicator;
 
     private TagRepository tagRepository = new TagRepository();
+    private HomeController homeController;
 
     @FXML
     void initialize() {
@@ -87,8 +92,15 @@ public class AppController {
         assert content != null : "fx:id=\"content\" was not injected: check your FXML file 'appWindow.fxml'.";
         assert progressIndicator != null : "fx:id=\"progressIndicator\" was not injected: check your FXML file 'appWindow.fxml'.";
 
+        // Bind VBox width to ScrollPane viewport width
+        sideMenu.prefWidthProperty().bind(sideMenuScrollPane.widthProperty());
+        // sideMenuScrollPane = 100%
+        sideMenu.minHeightProperty().bind(sideMenuScrollPane.viewportBoundsProperty().map(bounds -> bounds.getHeight()));
+
         // Hide progressIndicator
         progressIndicator.setVisible(false);
+        // Turn off searchBtn
+        searchBtn.setDisable(true);
 
         // Icons
         FontIcon searchIcon = new FontIcon(FontAwesome.SEARCH);
@@ -142,10 +154,29 @@ public class AppController {
         nSnippetBtn.setOnMouseExited(e -> nSnippetBtn.setCursor(Cursor.DEFAULT));
         nSnippetBtn.setOnAction(e -> openNewSnippetPage());
 
+        // Load gui
         loadSidebar();
-
-        // Load home page on start
         openHomePage();
+    }
+
+    @FXML
+    private void searchAction() {
+        String searchText = searchBar.getText();
+        if(homeController != null) {
+            homeController.loadSnippets(searchText.isBlank() ? null : searchText, null);
+        }else {
+            log.error("Search error: No HomeController");
+        }
+    }
+
+    @FXML
+    private void showAll() {
+        homeController.loadSnippets(null, null);
+    }
+
+    @FXML
+    private void showFavourites() {
+        homeController.loadSnippets("aZ7pQw4LmX", null);
     }
 
     private void openNewTagPage() {
@@ -235,7 +266,7 @@ public class AppController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/homePage.fxml"));
                 Parent homeContent = fxmlLoader.load();
 
-                HomeController homeController = fxmlLoader.getController();
+                homeController = fxmlLoader.getController();
                 homeController.setParentController(AppController.this);
 
                 Scene scene = content.getScene();
@@ -259,6 +290,7 @@ public class AppController {
 
             content.getChildren().add(homeContent);
 
+            searchBtn.setDisable(false);
             progressIndicator.setVisible(false);
 
             log.info("Switch to home page");
@@ -286,7 +318,12 @@ public class AppController {
         task.setOnSucceeded(e -> {
             List<Tag> tags = task.getValue();
 
-            for (int i = 0; i < tags.size(); i++) {
+            ObservableList<Node> children = sideMenu.getChildren();
+            if(children.size() > 2) {
+                children.remove(2, children.size());
+            }
+
+            for(int i = 0; i < tags.size(); i++) {
                 Tag tag = tags.get(i);
 
                 Button tagButton = new Button(tag.getName());
@@ -298,6 +335,11 @@ public class AppController {
                 }else {
                     tagButton.getStyleClass().add("odd");
                 }
+
+                tagButton.setOnAction(event -> {
+                    homeController.loadSnippets(null, tag.getName());
+                });
+
 
                 sideMenu.getChildren().add(tagButton);
             }

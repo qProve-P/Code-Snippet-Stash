@@ -54,6 +54,16 @@
 
 /* ------------------- Layout ------------------- */
 
+#sideMenuScrollPane {
+    -fx-background-color: #252525;
+}
+#sideMenuScrollPane .scroll-bar {
+    -fx-background-color: #252525;
+}
+#sideMenuScrollPane .scroll-bar:vertical > .thumb {
+    -fx-background-color: #333;
+}
+
 #sideMenu {
     -fx-padding: 0;
     -fx-spacing: 0;
@@ -323,4 +333,9 @@
     -fx-background-radius: inherit;
     -fx-background-color: #252525;
     -fx-text-fill: #d9d9d9;
+}
+
+#tagSelectLabel {
+    -fx-text-fill: #d9d9d9;
+    -fx-font-size: 10px;
 }

@@ -31,10 +31,6 @@ public class Snippet {
     private boolean favourite = false;
 
     public void addTag(Tag tag) {
-        if(tags.size() >= 4) {
-            log.warn("Add tag fail: max 4 tags.");
-            throw new IllegalArgumentException("Cannot add more than 4 tags");
-        }
         tags.add(tag);
         log.info("Tag added to: ", this.name);
     }

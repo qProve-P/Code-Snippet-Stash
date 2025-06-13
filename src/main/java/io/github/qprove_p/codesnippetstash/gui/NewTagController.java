@@ -43,6 +43,7 @@ public class NewTagController implements Page {
 
         new TagRepository().save(tag);
 
+        parentController.loadSidebar();
         closeWindow();
     }
 

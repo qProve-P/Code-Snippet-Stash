@@ -10,11 +10,12 @@
 
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.AppController">
     <top>
         <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1037.0" spacing="10" styleClass="top-bar">
             <TextField fx:id="searchBar" promptText="Search..." minWidth="230"/>
-            <Button fx:id="searchBtn" />
+            <Button fx:id="searchBtn" onAction="#searchAction" />
             <Region prefWidth="528.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="homeBtn" />
             <Button fx:id="nSnippetBtn" />
@@ -23,10 +24,12 @@
     </top>
 
     <left>
-        <VBox fx:id="sideMenu" prefHeight="574.0" prefWidth="240.0" spacing="10" styleClass="side-menu">
-            <Button fx:id="allBtn" text="All" />
-            <Button fx:id="favouritesBtn" text="Favourites" />
-        </VBox>
+        <ScrollPane fx:id="sideMenuScrollPane" fitToWidth="true" prefWidth="240.0">
+            <VBox fx:id="sideMenu" prefWidth="240.0" spacing="10" styleClass="side-menu">
+                <Button fx:id="allBtn" text="All" onAction="#showAll"/>
+                <Button fx:id="favouritesBtn" text="Favourites" onAction="#showFavourites" />
+            </VBox>
+        </ScrollPane>
     </left>
 
    <center>

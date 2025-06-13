@@ -10,24 +10,18 @@ import java.util.List;
 public class TagRepository {
 
     public List<Tag> findAll() {
-        EntityManager em = JPAConnector.getEntityManager();
 
-        try {
+        try(EntityManager em = JPAConnector.getEntityManager()) {
             log.info("Get all tags");
             return em.createQuery("select t from Tag t", Tag.class).getResultList();
-        }finally {
-            em.close();
         }
     }
 
     public List<Tag> getAllDistinct() {
-        EntityManager em = JPAConnector.getEntityManager();
 
-        try {
+        try(EntityManager em = JPAConnector.getEntityManager()) {
             log.info("Get all distinct tags");
             return em.createQuery("select distinct t from Tag t", Tag.class).getResultList();
-        }finally {
-            em.close();
         }
     }
 

@@ -11,37 +11,38 @@ import java.util.List;
 public class SnippetRepository {
 
     public List<Snippet> findAll() {
-        EntityManager em = JPAConnector.getEntityManager();
 
-        try {
+        try(EntityManager em = JPAConnector.getEntityManager()) {
             log.info("Get all snippets");
             return em.createQuery("select s from Snippet s", Snippet.class).getResultList();
-        }finally {
-            em.close();
         }
     }
 
     public List<Snippet> findByFavourite() {
-        EntityManager em = JPAConnector.getEntityManager();
 
-        try {
+        try(EntityManager em = JPAConnector.getEntityManager()) {
             log.info("Get favourite snippets");
             return em.createQuery("select s from Snippet s where s.favourite = true", Snippet.class).getResultList();
-        }finally {
-            em.close();
         }
     }
 
     public List<Snippet> findByTag(String tag) {
-        EntityManager em = JPAConnector.getEntityManager();
 
-        try {
+        try(EntityManager em = JPAConnector.getEntityManager()) {
             log.info("Get all snippets by tag");
             return em.createQuery("select s from Snippet s join s.tags t where t.name = :tag", Snippet.class)
                     .setParameter("tag", tag)
                     .getResultList();
-        }finally {
-            em.close();
+        }
+    }
+
+    public List<Snippet> findByName(String name) {
+
+        try(EntityManager em = JPAConnector.getEntityManager()) {
+            log.info("Get all snippets by name");
+            return em.createQuery("select s from Snippet s where name like CONCAT('%', :name, '%')", Snippet.class)
+                    .setParameter("name", name)
+                    .getResultList();
         }
     }
 

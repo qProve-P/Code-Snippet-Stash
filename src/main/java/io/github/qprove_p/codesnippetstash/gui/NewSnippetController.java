@@ -48,8 +48,14 @@ public class NewSnippetController implements Page {
         String code = codeFieldS.getText();
 
         Snippet snippet = Snippet.builder().name(name).code(code).tags(new ArrayList<>()).build();
-        for(Tag tag : tagSelectS.getSelectionModel().getSelectedItems()) {
-            snippet.addTag(tag);
+
+        List<Tag> selectedTags = new ArrayList<>(tagSelectS.getSelectionModel().getSelectedItems());
+        if(selectedTags.size() <= 4) {
+            for(Tag tag : tagSelectS.getSelectionModel().getSelectedItems()) {
+                snippet.addTag(tag);
+            }
+        }else {
+            throw new RuntimeException("Max 4 tags");
         }
 
         new SnippetRepository().save(snippet);

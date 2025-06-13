@@ -46,7 +46,7 @@ public class HomeController implements Page {
 
         scrollContent.prefWidthProperty().bind(contentArea.widthProperty());
 
-        loadSnippets();
+        loadSnippets(null, null);
     }
 
     private boolean isColorCloserToWhite(Color color) {
@@ -55,11 +55,21 @@ public class HomeController implements Page {
     }
 
     @FXML
-    private void loadSnippets() {
+    public void loadSnippets(String search, String searchTag) {
         Task<List<Snippet>> task = new Task<>() {
             @Override
             protected List<Snippet> call() {
-                return snippetRepository.findAll();
+                if(searchTag != null) {
+                    return snippetRepository.findByTag(searchTag);
+                }
+                if(search == null) {
+                    return snippetRepository.findAll();
+                }
+                if(search.equals("aZ7pQw4LmX")) {
+                    return snippetRepository.findByFavourite();
+                }
+
+                return snippetRepository.findByName(search);
             }
         };
 
