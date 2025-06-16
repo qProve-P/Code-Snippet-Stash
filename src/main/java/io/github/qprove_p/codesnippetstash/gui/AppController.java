@@ -307,6 +307,53 @@ public class AppController {
         new Thread(loadTask).start();
     }
 
+    public void openDetailPage(DetailData detailData) {
+        progressIndicator.setVisible(true);
+
+        Task<DetailPageWrapper> loadTask = new Task<>() {
+            @Override
+            protected DetailPageWrapper call() throws Exception {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/detailPage.fxml"));
+                Parent detailContent = fxmlLoader.load();
+
+                DetailPage controller = fxmlLoader.getController();
+                controller.setParentController(AppController.this);
+
+                return new DetailPageWrapper(detailContent, controller);
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            DetailPageWrapper result = (DetailPageWrapper) loadTask.getValue();
+            Parent detailContent = result.parent;
+            DetailPage controller = result.controller;
+
+            controller.setDetailData(detailData);
+
+            content.getChildren().clear();
+
+            AnchorPane.setTopAnchor(detailContent, 0.0);
+            AnchorPane.setBottomAnchor(detailContent, 0.0);
+            AnchorPane.setLeftAnchor(detailContent, 0.0);
+            AnchorPane.setRightAnchor(detailContent, 0.0);
+
+            content.getChildren().add(detailContent);
+
+            progressIndicator.setVisible(false);
+            log.info("Switched to detail page");
+        });
+
+        loadTask.setOnFailed(e -> {
+            progressIndicator.setVisible(false);
+            Throwable ex = loadTask.getException();
+
+            log.error("Unable to switch to detail page: ", ex);
+            throw new RuntimeException(ex);
+        });
+
+        new Thread(loadTask).start();
+    }
+
     public void loadSidebar() {
         Task<List<Tag>> task = new Task<>() {
             @Override

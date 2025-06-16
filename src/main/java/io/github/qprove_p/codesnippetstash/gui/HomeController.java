@@ -110,6 +110,15 @@ public class HomeController implements Page {
 
                 row.getChildren().addAll(snippetName, spacer, tagsBox);
 
+                row.setOnMouseClicked(event -> {
+                    DetailData data = new DetailData(
+                            snippet.getName(),
+                            snippet.getCode(),
+                            snippet.getTags()
+                    );
+                    parentController.openDetailPage(data);
+                });
+
                 scrollContent.getChildren().add(row);
             }
         });
