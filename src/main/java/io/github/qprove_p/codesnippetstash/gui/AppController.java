@@ -1,18 +1,17 @@
 package io.github.qprove_p.codesnippetstash.gui;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
+import io.github.qprove_p.codesnippetstash.storage.DetailData;
 import io.github.qprove_p.codesnippetstash.storage.TagRepository;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -127,7 +126,7 @@ public class AppController {
         nTagBtn.setText("+");
         nTagBtn.setGraphic(tagIcon);
 
-        // Buttons
+        // Actions
         allBtn.setMaxWidth(Double.MAX_VALUE);
         favouritesBtn.setMaxWidth(Double.MAX_VALUE);
         VBox.setVgrow(allBtn, Priority.ALWAYS);
@@ -373,7 +372,32 @@ public class AppController {
             for(int i = 0; i < tags.size(); i++) {
                 Tag tag = tags.get(i);
 
-                Button tagButton = new Button(tag.getName());
+                Label nameLabel = new Label(tag.getName());
+                HBox.setHgrow(nameLabel, Priority.ALWAYS);
+                nameLabel.setMaxWidth(Double.MAX_VALUE);
+                nameLabel.setAlignment(Pos.CENTER);
+                nameLabel.getStyleClass().add("sideMenuBtnText");
+
+                Button closeButton = new Button("×");
+                closeButton.setFocusTraversable(false);
+                closeButton.setMinWidth(20);
+                closeButton.setPrefWidth(20);
+                closeButton.setMaxHeight(20);
+                closeButton.getStyleClass().add("closeBtn");
+                closeButton.setOnAction(ev -> {
+                    ev.consume();
+                    tagRepository.delete(tag);
+                    loadSidebar();
+                    openHomePage();
+                });
+
+                HBox content = new HBox(nameLabel, closeButton);
+                content.setSpacing(5);
+                content.setAlignment(Pos.CENTER_LEFT);
+                content.setPrefWidth(Double.MAX_VALUE);
+
+                Button tagButton = new Button();
+                tagButton.setGraphic(content);
                 tagButton.setPrefWidth(Double.MAX_VALUE);
                 tagButton.getStyleClass().add("sideMenuBtn");
 
@@ -386,7 +410,6 @@ public class AppController {
                 tagButton.setOnAction(event -> {
                     homeController.loadSnippets(null, tag.getName());
                 });
-
 
                 sideMenu.getChildren().add(tagButton);
             }

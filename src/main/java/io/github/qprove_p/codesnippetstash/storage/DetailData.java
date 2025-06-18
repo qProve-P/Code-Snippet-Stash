@@ -1,5 +1,6 @@
-package io.github.qprove_p.codesnippetstash.gui;
+package io.github.qprove_p.codesnippetstash.storage;
 
+import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,9 @@ import java.util.List;
 @Setter
 public class DetailData {
 
+    private Snippet snippet;
     private String detailName;
     private String detailCode;
     private List<Tag> detailTags;
+    private boolean favourite;
 }

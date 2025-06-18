@@ -8,11 +8,22 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="io.github.qprove_p.codesnippetstash.gui.DetailPage">
 
-    <VBox fx:id="detailContent" alignment="TOP_CENTER" spacing="10">
+    <VBox fx:id="detailContent" alignment="TOP_CENTER" spacing="5">
+        <HBox alignment="CENTER_RIGHT">
+            <Button fx:id="editButton" />
+            <Region prefWidth="5" />
+            <Button fx:id="toggleFavouriteButton" />
+            <Region prefWidth="10" HBox.hgrow="ALWAYS" />
+            <Button fx:id="deleteButton" />
+        </HBox>
         <TextField fx:id="detailName" />
-        <Region prefWidth="60" HBox.hgrow="ALWAYS" />
+        <HBox alignment="CENTER_RIGHT">
+            <Button fx:id="copyButton" />
+        </HBox>
         <TextArea fx:id="detailCode" />
         <Region prefWidth="60" HBox.hgrow="ALWAYS" />
-        <ListView fx:id="detailTags"/>
+        <ListView fx:id="detailTags" maxWidth="300" />
+        <Label fx:id="detailTagsLabel" text="Select multiple with CTRL" />
+        <Button fx:id="saveButton" />
     </VBox>
 </AnchorPane>

@@ -63,6 +63,80 @@ public class SnippetRepository {
         }
     }
 
+    public void updateName(Snippet snippet, String newName) {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Snippet managedSnippet = em.find(Snippet.class, snippet.getId());
+            if(managedSnippet != null) {
+                managedSnippet.setName(newName);
+            }else {
+                throw new IllegalArgumentException("Snippet not found with id: " + snippet.getId());
+            }
+            em.getTransaction().commit();
+        }catch(Exception e) {
+            em.getTransaction().rollback();
+            log.error("Can't update snippet name: ", e);
+            throw e;
+        }finally {
+            em.close();
+        }
+    }
+
+    public void updateCode(Snippet snippet, String newCode) {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Snippet managedSnippet = em.find(Snippet.class, snippet.getId());
+            if(managedSnippet != null) {
+                managedSnippet.setCode(newCode);
+            }else {
+                throw new IllegalArgumentException("Snippet not found with id: " + snippet.getId());
+            }
+            em.getTransaction().commit();
+        }catch(Exception e) {
+            em.getTransaction().rollback();
+            log.error("Can't update snippet code: ", e);
+            throw e;
+        }finally {
+            em.close();
+        }
+    }
+
+    public Snippet updateTags(Snippet snippet, List<Tag> newTags) {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Snippet managedSnippet = em.find(Snippet.class, snippet.getId());
+            if(managedSnippet != null) {
+                managedSnippet.getTags().clear();
+
+                for(Tag tag : newTags) {
+                    Tag managedTag = em.find(Tag.class, tag.getId());
+                    if(managedTag != null) {
+                        managedSnippet.getTags().add(managedTag);
+                    }else {
+                        em.persist(tag);
+                        managedSnippet.getTags().add(tag);
+                    }
+                }
+            } else {
+                throw new IllegalArgumentException("Snippet not found with id: " + snippet.getId());
+            }
+            em.getTransaction().commit();
+            return managedSnippet;
+        } catch(Exception e) {
+            em.getTransaction().rollback();
+            log.error("Can't update snippet tags: ", e);
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
     public void delete(Snippet snippet) {
         EntityManager em = JPAConnector.getEntityManager();
 
@@ -74,6 +148,27 @@ public class SnippetRepository {
         }catch(Exception e) {
             em.getTransaction().rollback();
             log.error("Can't delete snippet: ", e);
+            throw e;
+        }finally {
+            em.close();
+        }
+    }
+
+    public void updateFavourite(Snippet snippet, boolean favourite) {
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Snippet managedSnippet = em.find(Snippet.class, snippet.getId());
+            if(managedSnippet != null) {
+                managedSnippet.setFavourite(favourite);
+            }else {
+                throw new IllegalArgumentException("Snippet not found with id: " + snippet.getId());
+            }
+            em.getTransaction().commit();
+        }catch(Exception e) {
+            em.getTransaction().rollback();
+            log.error("Can't update snippet favourite: ", e);
             throw e;
         }finally {
             em.close();

@@ -1,5 +1,6 @@
 package io.github.qprove_p.codesnippetstash.storage;
 
+import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
 import jakarta.persistence.EntityManager;
 import lombok.extern.log4j.Log4j2;
@@ -47,7 +48,18 @@ public class TagRepository {
 
         try {
             em.getTransaction().begin();
-            em.remove(em.merge(tag));
+
+            List<Snippet> snippets = new SnippetRepository().findByTag(tag.getName());
+            for(Snippet snippet : snippets) {
+                snippet.getTags().remove(tag);
+                em.merge(snippet);
+            }
+
+            Tag managedTag = em.find(Tag.class, tag.getId());
+            if(managedTag != null) {
+                em.remove(managedTag);
+            }
+
             em.getTransaction().commit();
             log.info("Delete tag");
         }catch(Exception e) {

@@ -9,9 +9,12 @@ module code.snippet.stash {
     requires org.hibernate.orm.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome;
+    requires java.desktop;
 
     opens io.github.qprove_p.codesnippetstash.gui to javafx.fxml;
     opens io.github.qprove_p.codesnippetstash.data to jakarta.persistence, org.hibernate.orm.core;
 
     exports io.github.qprove_p.codesnippetstash.gui to javafx.fxml, javafx.graphics;
+    exports io.github.qprove_p.codesnippetstash.storage to javafx.fxml, javafx.graphics;
+    opens io.github.qprove_p.codesnippetstash.storage to javafx.fxml;
 }

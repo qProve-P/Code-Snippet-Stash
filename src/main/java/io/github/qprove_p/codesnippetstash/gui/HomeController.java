@@ -2,6 +2,7 @@ package io.github.qprove_p.codesnippetstash.gui;
 
 import io.github.qprove_p.codesnippetstash.data.Snippet;
 import io.github.qprove_p.codesnippetstash.data.Tag;
+import io.github.qprove_p.codesnippetstash.storage.DetailData;
 import io.github.qprove_p.codesnippetstash.storage.SnippetRepository;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -112,9 +113,11 @@ public class HomeController implements Page {
 
                 row.setOnMouseClicked(event -> {
                     DetailData data = new DetailData(
+                            snippet,
                             snippet.getName(),
                             snippet.getCode(),
-                            snippet.getTags()
+                            snippet.getTags(),
+                            snippet.isFavourite()
                     );
                     parentController.openDetailPage(data);
                 });
