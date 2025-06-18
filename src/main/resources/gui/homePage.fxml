@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="homePage" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.HomeController">
+<AnchorPane fx:id="homePage" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.HomeController">
     <ScrollPane fx:id="contentArea" BorderPane.alignment="CENTER" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <content>
             <VBox fx:id="scrollContent">

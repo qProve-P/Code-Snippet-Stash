@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ScrollPane?>
-<BorderPane fx:id="root" prefHeight="656.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.AppController">
+<BorderPane fx:id="root" prefHeight="656.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.qprove_p.codesnippetstash.gui.AppController">
     <top>
         <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1037.0" spacing="10" styleClass="top-bar">
             <TextField fx:id="searchBar" promptText="Search..." minWidth="230"/>
