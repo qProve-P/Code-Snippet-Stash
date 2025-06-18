@@ -3,6 +3,7 @@ package io.github.qprove_p.codesnippetstash.gui;
 
 import io.github.qprove_p.codesnippetstash.storage.JPAConnector;
 import jakarta.persistence.EntityManager;
+import javafx.scene.image.Image;
 import lombok.extern.log4j.Log4j2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,11 @@ public class Main extends Application {
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/gui/application.css")).toExternalForm());
 
             primaryStage.setTitle("Code Snippet Stash");
+
+            primaryStage.getIcons().add(new Image(
+                    Objects.requireNonNull(getClass().getResourceAsStream("/icons/icon-256.ico"))
+            ));
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
